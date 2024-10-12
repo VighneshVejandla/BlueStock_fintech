@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <title>Register IPO</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'dashboard' %}">
+                <img src="{% static 'img/logo.png' %}" alt="Logo" width="210" height="50"
+                    class="d-inline-block align-text-top">
+            </a>
+            <form class="form-inline my-2 my-lg-0" style="flex-grow: 1; text-align: center;">
+                <input class="form-control mr-sm-2 w-50 bg-light" type="search" placeholder="Search" aria-label="Search"
+                    style="border: none;">
+            </form>
+            <div class="d-flex align-items-center">
+                <span class="me-3">Hi, {{ request.session.username }} </span>
+                <img src="{% static 'img/profile.png' %}" alt="Profile" width="30" style="margin:0px 10px 0px 10px;">
+                <a href="#" class="ms-3">
+                    <i class="fas fa-bell"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar bg-light p-4">
+                <h5 class="menu-heading">MENU</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">
+                            <i class="fas fa-chart-bar"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{% url 'manageipo' %}">
+                            <i class="fas fa-shopping-cart"></i> Manage IPO
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-comment-alt"></i> IPO Subscription
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-file-alt"></i> IPO Allotment
+                        </a>
+                    </li>
+                </ul>
+
+                <h5 class="menu-heading">OTHERS</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-user-cog"></i> API Manager
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-user"></i> Accounts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-question-circle"></i> Help
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Main Content -->
+            <div class="col-md-10 p-4">
+                <div class="d-flex justify-content-between">
+                    <h3>IPO Information</h3>
+                    <div>
+                        <button class="btn btn-primary">Register</button>
+                        <a href="{% url 'manageipo' %}" class="btn btn-secondary">Cancel</a>
+                    </div>
+                </div>
+                <div class="d-flex">
+                    <div>
+                        <h4>IPO Information</h4>
+                        <h4>IPO Info</h4>
+                    </div>
+                    <form method="POST" enctype="multipart/form-data" class="form-layout">
+                        {% csrf_token %}
+                        <div class="form-row d-flex">
+                            <div class="col-md-4 text-center">
+                                <label for="{{ form.company_logo_path.id_for_label }}">
+                                    <h2>Company Logo</h2>
+                                </label><br>
+                                {{ form.company_logo_path }}
+                                <div class="mt-2">
+                                    <button class="btn btn-outline-primary">Upload Logo</button>
+                                    <button class="btn btn-outline-danger">Delete</button>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-6">
+                                    <label for="{{ form.company_name.id_for_label }}">Company Name</label>
+                                    {{ form.company_name }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="{{ form.price_band.id_for_label }}">Price Band</label>
+                                    {{ form.price_band }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="{{ form.open.id_for_label }}">Open</label>
+                                    {{ form.open }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="{{ form.close.id_for_label }}">Close</label>
+                                    {{ form.close }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="{{ form.issue_size.id_for_label }}">Issue Size</label>
+                                    {{ form.issue_size }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="{{ form.issue_type.id_for_label }}">Issue Type</label>
+                                    {{ form.issue_type }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="{{ form.listing_date.id_for_label }}">Listing Date</label>
+                                    {{ form.listing_date }}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label for="{{ form.status.id_for_label }}">Status</label>
+                                    {{ form.status }}
+                                </div>
+
+                                <h4>New Listed IPO Details</h4>
+
+                                <div class="form-row">
+                                    <div class="col-md-6">
+                                        <label for="{{ form.ipo_price.id_for_label }}">IPO Price</label>
+                                        {{ form.ipo_price }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.listing_price.id_for_label }}">Listing Price</label>
+                                        {{ form.listing_price }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.listing_gain.id_for_label }}">Listing Gain</label>
+                                        {{ form.listing_gain }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.listing_date.id_for_label }}">Listing Date</label>
+                                        {{ form.listing_date }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.cmp.id_for_label }}">CMP</label>
+                                        {{ form.cmp }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.current_return.id_for_label }}">Current Return</label>
+                                        {{ form.current_return }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.rhp.id_for_label }}">RHP</label>
+                                        {{ form.rhp }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="{{ form.drhp.id_for_label }}">DRHP</label>
+                                        {{ form.drhp }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and FontAwesome -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</body>
+
+</html>

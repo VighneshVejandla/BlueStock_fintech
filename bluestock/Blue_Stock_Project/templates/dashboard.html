@@ -1,0 +1,202 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <title>IPO Dashboard</title>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'dashboard' %}">
+                <img src="{% static 'img/logo.png' %}" alt="Logo" width="210" height="50"
+                    class="d-inline-block align-text-top">
+            </a>
+            <form class="form-inline my-2 my-lg-0" style="flex-grow: 1; text-align: center;">
+                <input class="form-control mr-sm-2 w-50 bg-light" type="search" placeholder="Search" 
+                aria-label="Search" style="border: none; ">
+            </form>
+            <div class="d-flex align-items-center">
+                <span class="me-3">Hi, {{ request.session.username }} </span>
+                <img src="{% static 'img/profile.png' %}" alt="Profile" width="30" style="margin:0px 10px 0px 10px;">
+                <a href="#" class="ms-3">
+                    <i class="fas fa-bell"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar bg-light p-4">
+                <h5 class="menu-heading">MENU</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">
+                            <i class="fas fa-chart-bar"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'manageipo' %}">
+                            <i class="fas fa-shopping-cart"></i> Manage IPO
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-comment-alt"></i> IPO Subscription
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-file-alt"></i> IPO Allotment
+                        </a>
+                    </li>
+                </ul>
+            
+                <h5 class="menu-heading">OTHERS</h5>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-user-cog"></i> API Manager
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-user"></i> Accounts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            <i class="fas fa-question-circle"></i> Help
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-10 p-4">
+                <h3>Dashboard</h3>
+                <div class="row">
+                    <div class="col-md-4" style="box-sizing: border-box; overflow: hidden;">
+                        <h5>IPO Dashboard India</h5>
+                        <p><span style="color:green;">↑</span> {{ ipo_gain }} IPO in Gain</p>
+                        <div class="d-flex ipos">
+                            <div class="circle-container">
+                                <div class="circle loss">
+                                    <div class="circle-text">
+                                        <h4 class="responsive-text">{{ ipo_loss }}</h4>
+                                        <p class="responsive-text">IPO in Loss</p>
+                                    </div>
+                                </div>
+                                <div class="circle total">
+                                    <div class="circle-text">
+                                        <h2>{{ ipo_total }}</h2>
+                                        <p>Total IPO</p>
+                                    </div>
+                                </div>
+                                <div class="circle gain">
+                                    <div class="circle-text">
+                                        <h3>{{ ipo_gain }}</h3>
+                                        <p>IPO in Gain</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <h5>Quick Links</h5>
+                        <p style="color: #B0B0B0; font-size: 12px;">Adipiscing elit, sed do eiusmod tempor</p>
+                        <ul class="list-unstyled">
+                            <li class="d-flex justify-content-between align-items-center py-3">
+                                <div class="d-flex align-items-center">
+                                    <img src="{% static 'img/google.jpg' %}" alt="NSE India Logo" width="30" height="30"
+                                        class="rounded-circle mr-3">
+                                    <span>NSE India</span>
+                                </div>
+                                <a href="#" class="text-primary">Visit Now</a>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center py-3">
+                                <div class="d-flex align-items-center">
+                                    <img src="{% static 'img/google.jpg' %}" alt="BSE India Logo" width="30" height="30"
+                                        class="rounded-circle mr-3">
+                                    <span>BSE India</span>
+                                </div>
+                                <a href="#" class="text-primary">Visit Now</a>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center py-3">
+                                <div class="d-flex align-items-center">
+                                    <img src="{% static 'img/google.jpg' %}" alt="SEBI Logo" width="30" height="30"
+                                        class="rounded-circle mr-3">
+                                    <span>SEBI</span>
+                                </div>
+                                <a href="#" class="text-primary">Visit Now</a>
+                            </li>
+                            <li class="d-flex justify-content-between align-items-center py-3">
+                                <div class="d-flex align-items-center">
+                                    <img src="{% static 'img/google.jpg' %}" alt="Money Control Logo" width="30"
+                                        height="30" class="rounded-circle mr-3">
+                                    <span>Money Control</span>
+                                </div>
+                                <a href="#" class="text-primary">Visit Now</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-4">
+                        <div class="card" style="border-style: none;">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <h5 class="card-title">Main Board IPO</h5>
+                                    <a href="#" class="btn btn-link" style="border: 1px solid blue; color: #6c63ff;">View Report</a>
+                                </div>
+                                <p>From 01 Jan 2024</p>
+                                <canvas id="ipoChart" class="chart"></canvas>
+                                <div class="d-flex justify-content-around mt-3">
+                                    <div class="text-center">
+                                        <span class="dot upcoming"></span>
+                                        <p>Upcoming</p>
+                                        <span>{{ ipo_upcoming }}</span>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="dot new-listed"></span>
+                                        <p>New Listed</p>
+                                        <span>{{ ipo_new_listed }}</span>
+                                    </div>
+                                    <div class="text-center">
+                                        <span class="dot ongoing"></span>
+                                        <p>Ongoing</p>
+                                        <span>{{ ipo_ongoing }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and FontAwesome -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{%static 'dashboard.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <title>Login</title>
+</head>
+
+<body class="d-flex justify-content-center align-items-center vh-100">
+{% if messages %}
+    <div id="message" class="alert alert-info text-center"
+        style="position: absolute; top: 20px; right: 20px; width: auto; z-index: 1000;">
+        {% for message in messages %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
+    <div class="card p-4" style="width: 400px; border: none">
+        <img src="{% static 'img/logo.png' %}" alt="Logo" class="mb-3" />
+        <form id="loginForm" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control" id="email" name="email" required />
+            </div>
+            <div class="form-group">
+                <span class="d-flex" style="justify-content: space-between">
+                    <label for="password">Password</label>
+                    <small><a href="{% url 'forgot_password' %}">Forgot Password?</a></small>
+                </span>
+                <div class="input-group">
+                    <input type="password" class="form-control" id="password" name="password" required />
+                    <span class="toggle-password" id="togglePassword">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group form-check form-check-IMR d-flex">
+                <span class="checkbox">
+                    <input type="checkbox" id="captcha" class="custom-checkbox" required />
+                    <label class="form-check-label" for="captcha">I'm not a robot</label>
+                </span>
+                <img src="{% static 'img/recaptcha-icon.png' %}" alt="recaptcha-icon" style="width: 10%; height: 10%" />
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="keepSignedIn" />
+                <label class="form-check-label" for="keepSignedIn">Keep me signed in</label>
+            </div>
+            <button type="submit" 
+            class="btn btn-primary btn-block" 
+            style="background-color: #5d4bba; border: none;">Login</button>
+            <div class="text-center mt-3">
+                <div class="line-container">
+                    <span class="signinwith">or sign in with</span>
+                </div>
+                <button class="btn btn-light mt-2">
+                    <img src="{% static 'img/search.png' %}" alt="google Image" style="width: 7%" />
+                    Continue with Google
+                </button>
+                <div class="mt-3">
+                    <a href="{% url 'signup' %}">Creat an Account</a>
+                </div>
+            </div>
+        </form>
+    </div>
+    <script src="{% static 'script_l_f_s.js' %}"></script>
+</body>
+
+</html>
