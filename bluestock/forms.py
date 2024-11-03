@@ -11,5 +11,5 @@ class IPOInfoForm(forms.ModelForm):
         ]
         widgets = {
             'listing_date': forms.DateInput(attrs={'type': 'date'}),
-            'company_logo_path': forms.TextInput(attrs={'type': 'file'})
+            'company_logo_path': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }

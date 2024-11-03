@@ -57,10 +57,9 @@ def login_view(request):
     return render(request, 'login.html')
 
 
+
 def forgot_password_view(request):
     return render(request, 'forgotpassword.html')
-
-
 
 
 from django.shortcuts import render
@@ -99,6 +98,7 @@ def dashboard(request):
     }
     return render(request, 'dashboard.html', context)
 
+
 from django.shortcuts import render
 from django.core.paginator import Paginator
 from .models import IPOInfo
@@ -117,21 +117,34 @@ def manageipo(request):
 
     return render(request, 'manageipo.html', context)
 
+
 from django.shortcuts import render, redirect
-from .forms import IPOInfoForm  # Import your form
-from .models import IPOInfo
+from django.contrib import messages
+from django.db import IntegrityError
+from .forms import IPOInfoForm  # Ensure this is the correct import for your form
+from .models import IPOInfo  # Ensure this is the correct import for your model
 
 def register_ipo(request):
     if request.method == 'POST':
-        # Handle form submission
-        form = IPOInfoForm(request.POST, request.FILES)  # Add request.FILES for file uploads
+        # Create an instance of the form with the submitted data
+        form = IPOInfoForm(request.POST, request.FILES)  # Include request.FILES for file uploads
         if form.is_valid():
-            form.save()  # Save the form to the database
-            return redirect('manageipo')  # Redirect back to the Manage IPO page after saving
+            try:
+                form.save()  # Save the form data to the database
+                messages.success(request, 'IPO information registered successfully!')
+                return redirect('manageipo')  # Redirect to the manage IPO page after saving
+            except IntegrityError as e:
+                # Handle unique constraint errors
+                messages.error(request, 'An error occurred while saving the IPO information.')
+                print(f"IntegrityError: {str(e)}")  # Debugging line
+            except Exception as e:
+                messages.error(request, f'Error: {str(e)}')  # Handle any other exceptions
+                print(f"Error: {str(e)}")  # Debugging line
+        else:
+            # If the form is not valid, print the errors for debugging
+            print("Form errors:", form.errors)  # Debugging line
     else:
-        # Display empty form for GET request
+        # If the request method is GET, create an empty form
         form = IPOInfoForm()
-    
-    return render(request, 'register.html', {'form': form})
 
-
+    return render(request, 'register.html', {'form': form})  # Render the form with any errors

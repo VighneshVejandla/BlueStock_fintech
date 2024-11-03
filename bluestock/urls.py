@@ -15,7 +15,7 @@ urlpatterns = [
     path('forgotpassword/', forgot_password_view, name='forgot_password'),
     path('dashboard/', dashboard, name='dashboard'),
     path('manageipo/', manageipo, name='manageipo'),
-    path('register/', register_ipo, name='register'),
+    path('register/', register_ipo, name='register_ipo'),
 ]
 from django.conf import settings
 from django.conf.urls.static import static

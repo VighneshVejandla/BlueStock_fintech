@@ -25,7 +25,9 @@
             </form>
             <div class="d-flex align-items-center">
                 <span class="me-3">Hi, {{ request.session.username }} </span>
-                <img src="{% static 'img/profile.png' %}" alt="Profile" width="30" style="margin:0px 10px 0px 10px;">
+                <a href="{% url 'signup' %}">
+                    <img src="{% static 'img/profile.png' %}" alt="Profile" width="30" style="margin:0px 10px 0px 10px;">
+                </a>
                 <a href="#" class="ms-3">
                     <i class="fas fa-bell"></i>
                 </a>

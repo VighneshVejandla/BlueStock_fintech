@@ -13,7 +13,8 @@ class UserSign(models.Model):
     
 
 class IPOInfo(models.Model):
-    company_logo_path = models.TextField()
+    # company_logo_path = models.TextField()
+    company_logo_path = models.ImageField(upload_to='company_logos/')
 
     company_name = models.CharField(max_length=255)
     price_band = models.CharField(max_length=100)

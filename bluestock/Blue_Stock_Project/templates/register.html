@@ -8,6 +8,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
     <link rel="stylesheet" href="{% static 'styles.css' %}" />
+    <link rel="stylesheet" href="{% static 'forms.css' %}">
     <title>Register IPO</title>
 </head>
 
@@ -88,116 +89,264 @@
             </div>
 
             <!-- Main Content -->
-            <div class="col-md-10 p-4">
-                <div class="d-flex justify-content-between">
-                    <h3>IPO Information</h3>
-                    <div>
-                        <button class="btn btn-primary">Register</button>
-                        <a href="{% url 'manageipo' %}" class="btn btn-secondary">Cancel</a>
-                    </div>
+
+            
+            <!-- <div class="col-md-10 p-4">
+                <div class="justify-content-between">
+                    <h3>Upcomming IPO Information</h3>
+                    <p>Manage your IPO Details</p>
                 </div>
                 <div class="d-flex">
                     <div>
-                        <h4>IPO Information</h4>
-                        <h4>IPO Info</h4>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <span>IPO Information</span>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-file-alt me-2"></i>
+                            <span>IPO Info</span>
+                        </div>
                     </div>
-                    <form method="POST" enctype="multipart/form-data" class="form-layout">
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors }}
+                    </div>
+                    {% endif %}
+                    <form method="POST" action="{% url 'register_ipo' %}" enctype="multipart/form-data"
+                        class="form-layout">
                         {% csrf_token %}
-                        <div class="form-row d-flex">
-                            <div class="col-md-4 text-center">
-                                <label for="{{ form.company_logo_path.id_for_label }}">
-                                    <h2>Company Logo</h2>
-                                </label><br>
-                                {{ form.company_logo_path }}
-                                <div class="mt-2">
-                                    <button class="btn btn-outline-primary">Upload Logo</button>
-                                    <button class="btn btn-outline-danger">Delete</button>
-                                </div>
+
+                        <div>
+                            <button type="submit" class="btn btn-primary">Register</button>
+                            <a href="{% url 'manageipo' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <label for="company_logo_path">Company Logo</label> <br>
+                            <input type="file" name="company_logo_path" id="company_logo_path" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="company_name">Company Name</label>
+                                <input type="text" name="company_name" id="company_name" required>
                             </div>
+
+                            <div class="col-md-6">
+                                <label for="price_band">Price Band</label>
+                                <input type="text" name="price_band" id="price_band" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="open">Open</label>
+                                <input type="text" name="open" id="open" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="close">Close</label>
+                                <input type="text" name="close" id="close" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="issue_size">Issue Size</label>
+                                <input type="text" name="issue_size" id="issue_size" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="issue_type">Issue Type</label>
+                                <input type="text" name="issue_type" id="issue_type" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="listing_date">Listing Date</label>
+                                <input type="date" name="listing_date" id="listing_date" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="status">Status</label>
+                                <input type="text" name="status" id="status" required>
+                            </div>
+
+                            <h4>New Listed IPO Details</h4>
 
                             <div class="form-row">
                                 <div class="col-md-6">
-                                    <label for="{{ form.company_name.id_for_label }}">Company Name</label>
-                                    {{ form.company_name }}
+                                    <label for="ipo_price">IPO Price</label>
+                                    <input type="text" name="ipo_price" id="ipo_price" required>
                                 </div>
-
                                 <div class="col-md-6">
-                                    <label for="{{ form.price_band.id_for_label }}">Price Band</label>
-                                    {{ form.price_band }}
+                                    <label for="listing_price">Listing Price</label>
+                                    <input type="text" name="listing_price" id="listing_price" required>
                                 </div>
-
                                 <div class="col-md-6">
-                                    <label for="{{ form.open.id_for_label }}">Open</label>
-                                    {{ form.open }}
+                                    <label for="listing_gain">Listing Gain</label>
+                                    <input type="text" name="listing_gain" id="listing_gain" required>
                                 </div>
-
                                 <div class="col-md-6">
-                                    <label for="{{ form.close.id_for_label }}">Close</label>
-                                    {{ form.close }}
+                                    <label for="cmp">CMP</label>
+                                    <input type="text" name="cmp" id="cmp" required>
                                 </div>
-
                                 <div class="col-md-6">
-                                    <label for="{{ form.issue_size.id_for_label }}">Issue Size</label>
-                                    {{ form.issue_size }}
+                                    <label for="current_return">Current Return</label>
+                                    <input type="text" name="current_return" id="current_return" required>
                                 </div>
-
                                 <div class="col-md-6">
-                                    <label for="{{ form.issue_type.id_for_label }}">Issue Type</label>
-                                    {{ form.issue_type }}
+                                    <label for="rhp">RHP</label>
+                                    <input type="text" name="rhp" id="rhp" required>
                                 </div>
-
                                 <div class="col-md-6">
-                                    <label for="{{ form.listing_date.id_for_label }}">Listing Date</label>
-                                    {{ form.listing_date }}
+                                    <label for="drhp">DRHP</label>
+                                    <input type="text" name="drhp" id="drhp" required>
                                 </div>
+                            </div>
+                        </div>
+                </div>
+                </form>
+            </div> -->
 
-                                <div class="col-md-6">
-                                    <label for="{{ form.status.id_for_label }}">Status</label>
-                                    {{ form.status }}
-                                </div>
 
-                                <h4>New Listed IPO Details</h4>
+            <div class="col-md-10 ">
+                <div class="justify-content-between">
+                    <h3>Upcoming IPO Information</h3>
+                    <p>Manage your IPO Details</p>
+                </div>
+                <div class="d-flex">
+                    <div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-info-circle me-2"></i>
+                            <h5>IPO Information</h5>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-file-alt me-2"></i>
+                            <h5>IPO Info</h5>
+                        </div>
+                    </div>
 
-                                <div class="form-row">
-                                    <div class="col-md-6">
-                                        <label for="{{ form.ipo_price.id_for_label }}">IPO Price</label>
-                                        {{ form.ipo_price }}
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="{{ form.listing_price.id_for_label }}">Listing Price</label>
-                                        {{ form.listing_price }}
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="{{ form.listing_gain.id_for_label }}">Listing Gain</label>
-                                        {{ form.listing_gain }}
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="{{ form.listing_date.id_for_label }}">Listing Date</label>
-                                        {{ form.listing_date }}
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="{{ form.cmp.id_for_label }}">CMP</label>
-                                        {{ form.cmp }}
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="{{ form.current_return.id_for_label }}">Current Return</label>
-                                        {{ form.current_return }}
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="{{ form.rhp.id_for_label }}">RHP</label>
-                                        {{ form.rhp }}
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label for="{{ form.drhp.id_for_label }}">DRHP</label>
-                                        {{ form.drhp }}
-                                    </div>
-                                </div>
+                    {% if form.errors %}
+                    <div class="alert alert-danger">
+                        {{ form.errors }}
+                    </div>
+                    {% endif %}
+                    
+                    <form method="POST" action="{% url 'register_ipo' %}" enctype="multipart/form-data" class="form-layout">
+                        {% csrf_token %}
+                        <div class="text-right mb-3">
+                            <button type="submit" class="btn btn-primary">Register</button>
+                            <a href="{% url 'manageipo' %}" class="btn btn-secondary">Cancel</a>
+                        </div>
+
+                        <div class="form-row mb-4">
+                            <div class="col-md-12 text-center">
+                                <label for="company_logo_path">Company Logo</label> <br>
+                                <input type="file" name="company_logo_path" id="company_logo_path" class="mb-2" required>
+                                <button class="btn btn-outline-primary">Upload Logo</button>
+                                <button class="btn btn-outline-danger">Delete</button>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="company_name">Company Name</label>
+                                <input type="text" name="company_name" id="company_name" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="price_band">Price Band</label>
+                                <input type="text" name="price_band" id="price_band" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="open">Open</label>
+                                <input type="text" name="open" id="open" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="close">Close</label>
+                                <input type="text" name="close" id="close" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="issue_size">Issue Size</label>
+                                <input type="text" name="issue_size" id="issue_size" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="issue_type">Issue Type</label>
+                                <select name="issue_type" id="issue_type" class="form-control" required>
+                                    <option value="">Select</option>
+                                    <option value="Book Built">Book Built</option>
+                                    <option value="Fixed Price">Fixed Price</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="listing_date">Listing Date</label>
+                                <input type="date" name="listing_date" id="listing_date" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="status">Status</label>
+                                <select name="status" id="status" class="form-control" required>
+                                    <option value="">Select</option>
+                                    <option value="1">Ongoing</option>
+                                    <option value="2">New Listed</option>
+                                    <option value="3">Upcoming</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <h4 class="mt-4">New Listed IPO Details</h4>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="ipo_price">IPO Price</label>
+                                <input type="text" name="ipo_price" id="ipo_price" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="listing_price">Listing Price</label>
+                                <input type="text" name="listing_price" id="listing_price" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="listing_gain">Listing Gain</label>
+                                <input type="text" name="listing_gain" id="listing_gain" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="cmp">CMP</label>
+                                <input type="text" name="cmp" id="cmp" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6">
+                                <label for="current_return">Current Return</label>
+                                <input type="text" name="current_return" id="current_return" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="rhp">RHP</label>
+                                <input type="text" name="rhp" id="rhp" class="form-control" required>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="drhp">DRHP</label>
+                                <input type="text" name="drhp" id="drhp" class="form-control" required>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Bootstrap JS and FontAwesome -->
